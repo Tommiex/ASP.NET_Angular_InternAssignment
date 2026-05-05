@@ -338,3 +338,4 @@ C:\Tommie\Project\GoFive_warmup\CodePulse\API\obj\Debug\net10.0\swae.build.ex.ca
 C:\Tommie\Project\GoFive_warmup\CodePulse\API\obj\Debug\net10.0\CodePulse.csproj.Up2Date
 C:\Tommie\Project\GoFive_warmup\CodePulse\API\obj\Debug\net10.0\CodePulse.genruntimeconfig.cache
 C:\Tommie\Project\GoFive_warmup\CodePulse\API\obj\Debug\net10.0\ref\CodePulse.dll
+C:\Tommie\Project\GoFive_warmup\CodePulse\API\obj\Debug\net10.0\CodePulse.sourcelink.json
