@@ -1,0 +1,113 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-5xl overflow-hidden">
+
+        <div class="flex items-center justify-between px-6 py-4 border-b">
+            <h2 class="text-xl font-bold text-slate-800">{{ selectedUser ? 'Edit User' : 'Add User' }}</h2>
+            <button (click)="close.emit()" class="text-slate-400 hover:text-slate-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <form [formGroup]="addUserFormGroup" (ngSubmit)="onSubmit()">
+            <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                <div>
+                    <label class="text-sm font-medium text-slate-600">First Name *</label>
+                    <input formControlName="firstName" type="text"
+                        class="w-full mt-1 p-2 border rounded-md border-slate-200 outline-none">
+                    @if (addUserFormGroup.touched && nameFromControl.hasError('required')){
+                    <p class="text-xs text-red-500 mt-1">This field is required</p>
+                    }
+                </div>
+                <div class="md:col-span-2">
+                    <label class="text-sm font-medium text-slate-600">Last Name *</label>
+                    <input formControlName="lastName" type="text"
+                        class="w-full mt-1 p-2 border rounded-md border-slate-200 outline-none">
+                    @if (addUserFormGroup.controls.lastName.invalid && addUserFormGroup.controls.lastName.touched) {
+                    <p class="text-xs text-red-500 mt-1">
+                        @if (addUserFormGroup.controls.lastName?.errors?.['required']) { Last Name is required. }
+                    </p>
+                    }
+                </div>
+
+                <div>
+                    <label class="text-sm font-medium text-slate-600">Email ID *</label>
+                    <input formControlName="email" type="email"
+                        class="w-full mt-1 p-2 border rounded-md border-slate-200 outline-none">
+                    @if (addUserFormGroup.controls.email.invalid && addUserFormGroup.controls.email.touched) {
+                    <p class="text-xs text-red-500 mt-1">
+                        @if (addUserFormGroup.get('email')?.errors?.['required']) { Email is required. }
+                        @if (addUserFormGroup.get('email')?.errors?.['email']) { Please enter a valid email. }
+                    </p>
+                    }
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-slate-600">Mobile No</label>
+                    <input formControlName="mobileNo" type="text"
+                        class="w-full mt-1 p-2 border rounded-md border-slate-200 outline-none">
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-slate-600">Select Role Type</label>
+                    <select formControlName="roleType"
+                        class="w-full mt-1 p-2 border rounded-md border-slate-200 outline-none bg-white">
+                        <option *ngFor="let role of roles" [value]="role[0]">{{role[0]}}</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-sm font-medium text-slate-600">Username *</label>
+                    <input formControlName="username" type="text"
+                        class="w-full mt-1 p-2 border rounded-md border-slate-200 outline-none">
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-slate-600">Password *</label>
+                    <input formControlName="password" type="password"
+                        class="w-full mt-1 p-2 border rounded-md border-slate-200 outline-none">
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-slate-600">Confirm Password *</label>
+                    <input formControlName="confirmPassword" type="password"
+                        class="w-full mt-1 p-2 border rounded-md border-slate-200 outline-none">
+                </div>
+            </div>
+
+            <div class="px-6 pb-6">
+                <div class="overflow-x-auto border rounded-md border-slate-100">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 text-slate-400 text-sm uppercase">
+                            <tr>
+                                <th class="px-4 py-3 font-semibold">Module Permission</th>
+                                <th class="px-4 py-3 font-semibold text-center">Read</th>
+                                <th class="px-4 py-3 font-semibold text-center">Write</th>
+                                <th class="px-4 py-3 font-semibold text-center">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100" formGroupName="permissions">
+                            <tr *ngFor="let role of roles" class="text-slate-700" [formGroupName]="role[1]">
+                                <td class="px-4 py-4">{{role[0]}}</td>
+                                <td class="px-4 py-4 text-center"><input type="checkbox" class="w-4 h-4 accent-blue-600"
+                                        formControlName="read"></td>
+                                <td class="px-4 py-4 text-center"><input type="checkbox" class="w-4 h-4 accent-blue-600"
+                                        formControlName="write"></td>
+                                <td class="px-4 py-4 text-center"><input type="checkbox" class="w-4 h-4 accent-blue-600"
+                                        formControlName="delete"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-4 px-6 py-4 bg-slate-50">
+                <button type="submit"
+                    class="px-6 py-2 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 transition">
+                    {{ selectedUser ? 'Update User' : 'Add User' }}
+                </button>
+                <button type="button" (click)="close.emit()"
+                    class="px-6 py-2 text-slate-500 hover:text-slate-700 font-medium">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
